@@ -1,5 +1,7 @@
 import os
 from idlelib.pyshell import PORT
+import matplotlib
+matplotlib.use('Agg')
 
 import unicodedata
 import telebot
