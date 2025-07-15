@@ -4,6 +4,8 @@ import telebot
 from flask import Flask, request
 from TTS.api import TTS
 from dotenv import load_dotenv
+import requests
+import tempfile
 from TTS.tts.models.xtts import XttsArgs, XttsAudioConfig
 from TTS.tts.configs.xtts_config import XttsConfig
 from TTS.config.shared_configs import BaseDatasetConfig
@@ -34,9 +36,12 @@ app = Flask(__name__)
 print("🧠 Loading XTTSv2 model...")
 tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2", gpu=False)
 
-speaker_wav_path = "samples/your_voice.wav"
-if not os.path.exists(speaker_wav_path):
-    raise FileNotFoundError(f"Speaker WAV not found at: {speaker_wav_path}")
+# 🔗 WAV file GitHub se load karo
+WAV_URL = "https://raw.githubusercontent.com/narangchouhan/xtts-telegram-bot/main/samples/your_voice.wav"
+response = requests.get(WAV_URL)
+with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as tmp_wav:
+    tmp_wav.write(response.content)
+    speaker_wav_path = tmp_wav.name
 
 def normalize_hindi(text):
     return unicodedata.normalize("NFC", text)
