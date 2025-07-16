@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: xtts-telegram-bot
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python main.py"
+    envVars:
+      - key: API_TOKEN
+        value: "8048586405:AAFc9T9LT31oUf27q9CWPRlF7Ia8j0H54s0"
+      - key: ALLOWED_USER_IDS
+        value: "7856152378"
+    autoDeploy: true
