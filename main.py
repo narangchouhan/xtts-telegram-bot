@@ -1,5 +1,4 @@
 import os
-from idlelib.pyshell import PORT
 import os
 os.environ["BACKENDLESS"] = "Agg"
 
